@@ -11,6 +11,7 @@ package chatserverandclient;
  * @author Anders
  */
 public class ChatServerAndClient {
+    private static String msg;
 
     /**
      * @param args the command line arguments
@@ -23,6 +24,12 @@ public class ChatServerAndClient {
     
     public static void main(String[] args) {
         System.out.println("This works!");
+        System.out.println(sendToAll(msg));
     }
     
+    static String sendToAll(String msg){
+        System.out.println(msg);
+        return msg;
+                
+    }
 }
