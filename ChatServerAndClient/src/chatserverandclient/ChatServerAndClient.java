@@ -18,7 +18,7 @@ public class ChatServerAndClient {
     
     public static void connect()
     {
-    
+        System.out.println("huehehu");
     }
     
     public static void main(String[] args) {
