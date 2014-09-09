@@ -32,4 +32,8 @@ public class ChatServerAndClient {
         return msg;
                 
     }
+    
+    public int cakeMaker(int amoung){
+       return amoung; 
+    }
 }
