@@ -15,6 +15,12 @@ public class ChatServerAndClient {
     /**
      * @param args the command line arguments
      */
+    
+    public static void connect()
+    {
+    
+    }
+    
     public static void main(String[] args) {
         System.out.println("This works!");
     }
