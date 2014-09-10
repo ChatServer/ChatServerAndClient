@@ -33,7 +33,7 @@ public class ChatClient extends Thread{
     
 
     public void send() {
-
+        
     }
 
     public void stopClient() {
