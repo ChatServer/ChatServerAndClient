@@ -1,0 +1,1 @@
+java -cp ChatServerAndClient.jar chatserver.ChatServer

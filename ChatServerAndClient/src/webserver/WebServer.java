@@ -27,8 +27,10 @@ public class WebServer {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
      */
-    public static void main(String[] args) throws IOException {
+//    public static void main(String[] args) throws IOException {
+    public WebServer() throws IOException {
 
         InetSocketAddress i = new InetSocketAddress(ip, port); //localhost - 127.0.0.1
         HttpServer server = HttpServer.create(i, 0);

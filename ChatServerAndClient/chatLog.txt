@@ -1,0 +1,2 @@
+sep. 10, 2014 4:38:47 PM chatServer.ChatServer runServer
+INFO: Sever started
