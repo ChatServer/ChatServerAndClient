@@ -6,6 +6,12 @@
 
 package chatClient;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Anders
@@ -15,8 +21,9 @@ public class ClientGui extends javax.swing.JFrame {
     /**
      * Creates new form ClientGui
      */
+    private ChatClient CC = new ChatClient();
     public ClientGui() {
-        initComponents();
+        initComponents();        
     }
 
     /**
@@ -50,6 +57,11 @@ public class ClientGui extends javax.swing.JFrame {
         jPanel1.add(textField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 270, 30));
 
         button1.setLabel("Send");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 350, 70, -1));
         jPanel1.add(textArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 360, 220));
 
@@ -78,6 +90,11 @@ public class ClientGui extends javax.swing.JFrame {
         jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 120, -1));
 
         jButton1.setText("Connect");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 120, -1));
 
         jLabel1.setText("IP");
@@ -97,6 +114,32 @@ public class ClientGui extends javax.swing.JFrame {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        try {
+            CC.connect(jTextField2.getText(), Integer.parseInt(jTextField3.getText()));
+        } catch (IOException ex) {
+            Logger.getLogger(ClientGui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            CC.sendConnect(jTextField1.getText());        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+    public void sendMessageToGui(String Name, String msg){
+        textArea1.setText(Name + ": " + msg);        
+    }
+    public void updateUserList(){
+        
+//        jList1.add
+    }
+    
+    
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        String selected = (jList1.getSelectedValuesList().toString());
+        String barberetSelected = (selected.substring(1, selected.length()-1));
+        String msg = textField2.getText();
+        CC.sendmessage(barberetSelected.replace(" ",""), msg);
+    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments

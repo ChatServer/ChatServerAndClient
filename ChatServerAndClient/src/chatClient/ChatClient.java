@@ -22,9 +22,8 @@ public class ChatClient implements Runnable {
     private InetAddress serverAddress;
     private int port;
 
-    public ChatClient(InetAddress serverAddress, int port) {
-        this.serverAddress = serverAddress;
-        this.port = port;
+    public ChatClient() {
+        
     }
 
     public void connect(String address, int port) throws UnknownHostException, IOException {
@@ -46,9 +45,7 @@ public class ChatClient implements Runnable {
     }
 
     public void sendmessage(String name, String message) {
-        try {
-            /* nameList split ","*/
-
+        try { 
             String protocol = "SEND#" + name + "#" + message; //IMPORTANT blocking call
             send(protocol);
         } catch (IOException ex) {
@@ -80,7 +77,9 @@ public class ChatClient implements Runnable {
         }
          /* incomming msg protocol split ","*/
         
-        
+//        public void sendMessageToGui(String Name, String msg){  METODE FRA GUI
+//        textArea1.setText(Name + ": " + msg);        
+//    }
         
     }
     
