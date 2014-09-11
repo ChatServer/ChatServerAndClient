@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 /**
  * @author Anders, Ruben, Bastian
  */
-public class ChatClient implements Runnable {
+public class ChatClient extends Thread {
 
     private Scanner input;
     private PrintWriter output;
@@ -22,10 +22,21 @@ public class ChatClient implements Runnable {
     private InetAddress serverAddress;
     private int port;
 
+    public static void main(String[] args) throws InterruptedException {
+    int port = 9090;
+    String ip = "localhost";
+    if (args.length == 2) {
+      port = Integer.parseInt(args[0]);
+      ip = args[1];
+    
+    }
+}
     public ChatClient(InetAddress serverAddress, int port) {
         this.serverAddress = serverAddress;
         this.port = port;
     }
+
+   
 
     public void connect(String address, int port) throws UnknownHostException, IOException {
         this.port = port;
@@ -33,7 +44,7 @@ public class ChatClient implements Runnable {
         socket = new Socket(serverAddress, port);
         input = new Scanner(socket.getInputStream());
         output = new PrintWriter(socket.getOutputStream(), true);
-
+        start();
     }
 
     public void sendConnect(String name) {
@@ -47,7 +58,7 @@ public class ChatClient implements Runnable {
 
     public void sendmessage(String name, String message) {
         try {
-            /* nameList split ","*/
+            /*noed med noed split ","*/ /*noed med noed split ","*/ /*noed med noed split ","*/
 
             String protocol = "SEND#" + name + "#" + message; //IMPORTANT blocking call
             send(protocol);
@@ -73,12 +84,13 @@ public class ChatClient implements Runnable {
     }
 
     public void run() {
+        
         String msg;
         while (true) {
             msg = input.nextLine();
             System.out.println("Got the protocol: " + msg);
         }
-         /* incomming msg protocol split ","*/
+          /*noed med noed split ","*/
         
         
         
