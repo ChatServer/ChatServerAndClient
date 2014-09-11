@@ -1,5 +1,3 @@
-
-
 package chatServer;
 
 import java.io.IOException;
@@ -14,90 +12,50 @@ import java.util.logging.Logger;
 /**
  * @author Ruben, Anders, Bastian.
  */
-
 public class ServerHandler extends Thread {
 
-  Scanner input;
-  PrintWriter writer;
-  Socket socket;
-  ChatServer server;
+    Scanner input;
+    PrintWriter writer;
+    Socket socket;
+    ChatServer server;
 
-  public ServerHandler(Socket socket, ChatServer server) throws IOException {
-    input = new Scanner(socket.getInputStream());
-    writer = new PrintWriter(socket.getOutputStream(), true);
-    this.socket = socket;
-    this.server = server;
-  }
-  
-  
-  
-  public void send(String msg){
-    writer.println(msg);
-  }
+    public ServerHandler(Socket socket, ChatServer server) throws IOException {
+        input = new Scanner(socket.getInputStream());
+        writer = new PrintWriter(socket.getOutputStream(), true);
+        this.socket = socket;
+        this.server = server;
+    }
 
-  @Override
-  public void run() {
-    try{
-    server.addHandler(this);
-    String message = input.nextLine(); //IMPORTANT blocking call
-//    String message = "CONNECT#Bastian"; //Testing
-    String[] messageParts = message.split("#");
-    Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));   // upper skal væk
-    while (!message.equals("#STOP#")) {
+    public void send(String msg) {
+        writer.println(msg);
+    }
 
-      //server.sendToAll(message);  
-      
-// evt her protocol #SEND#tue,torben#besked..blabla 
-/* evt.  splitter */
+    @Override
+    public void run() {
+        try {
 
-    
-        
-        if(messageParts[0].equals("CONNECT")){
-        
-            String user = messageParts[1]; // ikke declared endnu. user sendes til
-        //hahsmap i server.
-        server.connect(user,this);
-//            System.out.println(server.userMap.get(user));  // test om key=user finder value
-        }
-        if(messageParts[0].equals("SEND")){
-            String chatMessage = messageParts[2];
-            
-//            String receiver = messageParts[1];
-            
-            String comma = ",";
-            StringTokenizer sk = new StringTokenizer(messageParts[1], comma);
-            while(sk.hasMoreTokens()){
-                String name = sk.nextToken();
-                ServerHandler currentHandler = server.userMap.get(name);
-                String sending = "MESSAGE#"+name+"#"+chatMessage;
-                server.sendTo(currentHandler, sending );
-//                server.sendTo(expli, chatMessage);
-                System.out.println(sending);
+            String message = input.nextLine(); //IMPORTANT blocking call
+            String[] messageParts = message.split("#");
+            Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));   // upper skal væk
+            while (!message.equals("CLOSE")) {
+                String user = messageParts[1]; // ikke declared endnu. user sendes til hashmap i server.
 
+                if (messageParts[0].equals("CONNECT")) {
+                    server.connect(user, this);
+//      System.out.println(server.userMap.get(user));  // test om key=user finder value
+                }
+                if (messageParts[0].equals("SEND")) {
+                    String chatMessage = messageParts[2];
+                    server.sendTo(messageParts[1], message);
+//                    System.out.println("hgf"); // testing
+                }
+                if (messageParts[0].equals("CLOSE")) {
+                    server.removeHandler(user);
+                    Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Closed a Connection");
+                }
             }
+        }catch (NoSuchElementException ste) {
+            Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, "Socket timed out", ste); 
         }
-    
-      
-      
-//        if(messagePart[0])
-      
-      Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message.toUpperCase()));
-      message = input.nextLine(); //IMPORTANT blocking call
     }
-    }catch(NoSuchElementException  ste){
-        Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, "Socket timed out", ste);
-    }
-    writer.println("#STOP#");//Echo the stop message back to the client for a nice closedown
-    try {
-      input.close();
-      writer.close();
-      socket.close();
-    } catch (IOException ex) {
-      Logger.getLogger(ServerHandler.class.getName()).log(Level.SEVERE, null, ex);
-    } finally {
-      Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Closed a Connection");
-      server.removeHandler(this);
-    }
-  }
 }
-

@@ -22,7 +22,7 @@ public class ChatServer implements Runnable {
     private static ServerSocket serverSocket;
     private static final Properties properties = Utils.initProperties("server.properties");
     
-    private List<ServerHandler> handlers = Collections.synchronizedList(new ArrayList<ServerHandler>());
+    //private List<ServerHandler> handlers = Collections.synchronizedList(new ArrayList<ServerHandler>());
     Map<String,ServerHandler> userMap = Collections.synchronizedMap(new HashMap<String, ServerHandler>());
     
     
@@ -43,10 +43,24 @@ public class ChatServer implements Runnable {
     running = false;
     }
 
- public synchronized void sendTo(ServerHandler currentHandler, String sending){
+// public synchronized void sendTo(ServerHandler currentHandler, String sending){
+//
+//     currentHandler.send(sending);  // //// which socket! 
+//          
+//          
+//  }
+ public synchronized void sendTo(String modtager, String sending){
 
-     currentHandler.send(sending);  // //// which socket! 
-          
+       // //// which socket! 
+     if(modtager.equals("*"))
+     {
+     for(ServerHandler handler: userMap.values()){
+         handler.send(sending);
+     }     
+     }
+     
+     
+     
           
   }
 
@@ -86,17 +100,10 @@ public class ChatServer implements Runnable {
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    void removeHandler(ServerHandler client) {
-        handlers.remove(client);
+    void removeHandler(String user) {
+        userMap.remove(user);
     }
 
-    void addHandler(ServerHandler client) {
-        handlers.add(client);
-    }
-
-    void sendToAll(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     void connect(String name, ServerHandler sh){
     userMap.put(name, sh);
