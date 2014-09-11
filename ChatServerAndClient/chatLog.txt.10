@@ -1,0 +1,6 @@
+sep. 11, 2014 11:11:35 AM chatServer.ChatServer runServer
+INFO: Sever started
+sep. 11, 2014 11:11:54 AM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 11, 2014 11:12:06 AM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#BASTIAN 

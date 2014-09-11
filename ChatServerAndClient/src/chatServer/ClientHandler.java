@@ -12,14 +12,14 @@ import java.util.logging.Logger;
 /**
  * @author Ruben, Anders, Bastian.
  */
-public class ServerHandler extends Thread {
+public class ClientHandler extends Thread {
 
     Scanner input;
     PrintWriter writer;
     Socket socket;
     ChatServer server;
 
-    public ServerHandler(Socket socket, ChatServer server) throws IOException {
+    public ClientHandler(Socket socket, ChatServer server) throws IOException {
         input = new Scanner(socket.getInputStream());
         writer = new PrintWriter(socket.getOutputStream(), true);
         this.socket = socket;
@@ -53,6 +53,8 @@ public class ServerHandler extends Thread {
                     server.removeHandler(user);
                     Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Closed a Connection");
                 }
+                message = input.nextLine(); //IMPORTANT blocking call
+                messageParts = message.split("#");
             }
         }catch (NoSuchElementException ste) {
             Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, "Socket timed out", ste); 
