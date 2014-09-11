@@ -6,6 +6,7 @@
 package webserver;
 
 import chatServer.ChatServer;
+import static chatServer.ChatServer.userMap;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -22,30 +23,36 @@ import java.net.InetSocketAddress;
  *
  * @author Ejer
  */
-public class WebServer extends ChatServer{
+public class WebServer implements Runnable{
 
     static int port = 8080; //not the final port
     //static String ip = "137.135.177.64"; // not the final IP
     static String ip = "localhost";
 
-    /**
-     * @param args the command line arguments
-     * @throws java.io.IOException
-     */
-//    public static void main(String[] args) throws IOException {
+   
+    
     public WebServer() throws IOException {
 
         InetSocketAddress i = new InetSocketAddress(ip, port); //localhost - 127.0.0.1
         HttpServer server = HttpServer.create(i, 0);
 
+        
         server.createContext("/startpage", new genericHandler("index.html")); //Eksempel på genericHandler brugt.
         server.createContext("/logfile", new genericHandler("logfile.html"));
         server.createContext("/members", new genericHandler("groupmembers.html"));
         server.createContext("/documentation", new genericHandler("documentation.txt"));
         server.createContext("/jarfile", new genericHandler("Ca1Jar.txt"));
+        
         server.createContext("/online", new onlineHandler());
+        
         server.start();
+        
+    }
 
+    @Override
+    public void run() {
+        
+        
     }
     
     // Dette er en filehandler som kan bruges på alle filer.
@@ -89,6 +96,11 @@ public class WebServer extends ChatServer{
 
     }
     
+    
+    public static void updateOnline()
+    {
+        new onlineHandler();
+    }
 
     static class onlineHandler implements HttpHandler {
 

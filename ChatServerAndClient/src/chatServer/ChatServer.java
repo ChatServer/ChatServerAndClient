@@ -14,6 +14,8 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.Utils;
+import webserver.WebServer;
+import static webserver.WebServer.updateOnline;
 
 public class ChatServer implements Runnable {
 //    private static Utils ut = new Utils();
@@ -24,7 +26,7 @@ public class ChatServer implements Runnable {
     private static final Properties properties = Utils.initProperties("server.properties");
 
     //private List<ServerHandler> handlers = Collections.synchronizedList(new ArrayList<ServerHandler>());
-    Map<String, ClientHandler> userMap = Collections.synchronizedMap(new HashMap<String, ClientHandler>());
+    public static Map<String, ClientHandler> userMap = Collections.synchronizedMap(new HashMap<String, ClientHandler>());
     
     public static void main(String[] args) {
         int port = Integer.parseInt(properties.getProperty("port"));
@@ -95,6 +97,7 @@ public class ChatServer implements Runnable {
     
     void removeHandler(String user) {
         userMap.remove(user);
+        updateOnline();
     }
     
     void connect(String name, ClientHandler sh) {
