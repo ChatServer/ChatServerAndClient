@@ -21,8 +21,9 @@ public class ClientGui extends javax.swing.JFrame {
     /**
      * Creates new form ClientGui
      */
-    private ChatClient CC = new ChatClient();
+    private ChatClient CC;
     public ClientGui() {
+        CC = new ChatClient(this);
         initComponents();        
     }
 

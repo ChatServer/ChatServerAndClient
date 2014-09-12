@@ -1,12 +1,18 @@
-sep. 11, 2014 11:24:24 AM chatServer.ChatServer runServer
+sep. 11, 2014 4:59:27 PM chatServer.ChatServer runServer
 INFO: Sever started
-sep. 11, 2014 11:24:24 AM chatServer.ChatServer runServer
-SEVERE: null
-java.net.BindException: Address already in use
-	at java.net.PlainSocketImpl.socketBind(Native Method)
-	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:382)
-	at java.net.ServerSocket.bind(ServerSocket.java:375)
-	at java.net.ServerSocket.bind(ServerSocket.java:329)
-	at chatServer.ChatServer.runServer(ChatServer.java:67)
-	at chatServer.ChatServer.main(ChatServer.java:33)
-
+sep. 11, 2014 4:59:56 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 11, 2014 4:59:56 PM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#RUBEN 
+sep. 11, 2014 5:01:46 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 11, 2014 5:02:58 PM chatServer.ClientHandler run
+INFO: Received the message: MESSAGEME 
+sep. 11, 2014 5:03:31 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 11, 2014 5:04:01 PM chatServer.ClientHandler run
+INFO: Received the message: HJ 
+sep. 11, 2014 5:04:15 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 11, 2014 5:04:15 PM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#RUBEN 

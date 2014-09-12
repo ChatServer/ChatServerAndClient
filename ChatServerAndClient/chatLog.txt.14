@@ -1,0 +1,10 @@
+sep. 11, 2014 5:05:02 PM chatServer.ChatServer runServer
+INFO: Sever started
+sep. 11, 2014 5:05:35 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 11, 2014 5:05:58 PM chatServer.ClientHandler run
+SEVERE: Socket timed out
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at chatServer.ClientHandler.run(ClientHandler.java:37)
+

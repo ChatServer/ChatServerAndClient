@@ -103,15 +103,15 @@ public class ChatServer implements Runnable {
     void connect(String name, ClientHandler sh) {
         userMap.put(name, sh);
         String onlineMessage = "ONLINE#";
-        System.out.println("connect");
+//        System.out.println("connect");
         for (String userName : userMap.keySet()) {
             
-            onlineMessage += userName + ",";  //Et komma for meget ofølge protokollen.
+            onlineMessage += userName + ",";  //Et komma for meget ofølge protokollen !!!!!.
             
         }
         for (ClientHandler h : userMap.values()) {
             h.send(onlineMessage);
-            System.out.println("xxx");
+//            System.out.println("xxx");
         }
         
     }

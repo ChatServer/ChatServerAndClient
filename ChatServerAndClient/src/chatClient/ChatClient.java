@@ -21,8 +21,9 @@ public class ChatClient implements Runnable {
     Socket socket;
     private InetAddress serverAddress;
     private int port;
-
-    public ChatClient() {
+    ClientGui gui;
+    public ChatClient(ClientGui gui) {
+        this.gui = gui;
         
     }
 
@@ -45,7 +46,7 @@ public class ChatClient implements Runnable {
     }
 
     public void sendmessage(String name, String message) {
-        try { 
+        try {
             String protocol = "SEND#" + name + "#" + message; //IMPORTANT blocking call
             send(protocol);
         } catch (IOException ex) {
@@ -62,25 +63,36 @@ public class ChatClient implements Runnable {
         }
     }
 
-    public void send(String protocol) throws IOException {
+    public void send(String protocol) throws IOException {   // her sendes protocol til ClientHandler!
         if (socket.isOutputShutdown()) {
             throw new IOException("Outbound socket is closed");
         }
         output.println(protocol);
     }
 
-    public void run() {
-        String msg;
+    public void run() {                  // --------------  // her modtages protocol fra Clienthandler!
+        String msgProtocol;
         while (true) {
-            msg = input.nextLine();
-            System.out.println("Got the protocol: " + msg);
+            msgProtocol = input.nextLine();
+//            System.out.println("Got the protocol: " + msgProtocol);
+            String[] messageParts = msgProtocol.split("#");
+            Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", msgProtocol));   // upper skal væk
+            if (messageParts[0].equals("ONLINE")) {
+                String UsersOnline = messageParts[1]; // evt splittes "," her , eller i GUI
+//                gui.updateUserList(UsersOnline);  // metodekald til metode i Gui
+            }
+            if (messageParts[0].equals("MESSAGE")) {
+                String fromSender = messageParts[1];
+                String message = messageParts[2];
+                gui.sendMessageToGui(fromSender, message);   // metodekald til metode i Gui
+            }
+            if (messageParts[0].equals("CLOSE")) {
+                String tom = "";  // whitespace i Gui
+                String close = "You have been diconectet from ChatServer";
+                gui.sendMessageToGui(tom, close);   // metodekald til metode i Gui
+            }
         }
-         /* incomming msg protocol split ","*/
-        
-//        public void sendMessageToGui(String Name, String msg){  METODE FRA GUI
-//        textArea1.setText(Name + ": " + msg);        
-//    }
-        
+
     }
-    
+
 }

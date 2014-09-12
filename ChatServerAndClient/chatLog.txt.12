@@ -1,10 +1,16 @@
-sep. 11, 2014 11:43:21 AM chatServer.ChatServer runServer
+sep. 11, 2014 3:31:31 PM chatServer.ChatServer runServer
 INFO: Sever started
-sep. 11, 2014 11:43:37 AM chatServer.ChatServer runServer
+sep. 11, 2014 3:32:22 PM chatServer.ChatServer runServer
 INFO: Connected to a client
-sep. 11, 2014 11:43:45 AM chatServer.ClientHandler run
-INFO: Received the message: CONNECT#BASTIAN 
-sep. 11, 2014 11:43:53 AM chatServer.ChatServer runServer
-INFO: Connected to a client
-sep. 11, 2014 11:43:59 AM chatServer.ClientHandler run
+sep. 11, 2014 3:32:22 PM chatServer.ClientHandler run
 INFO: Received the message: CONNECT#RUBEN 
+sep. 11, 2014 4:58:49 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 11, 2014 4:58:49 PM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#RUBEN 
+sep. 11, 2014 4:59:00 PM chatServer.ClientHandler run
+SEVERE: Socket timed out
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at chatServer.ClientHandler.run(ClientHandler.java:56)
+
