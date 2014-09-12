@@ -1,0 +1,18 @@
+sep. 12, 2014 3:14:27 PM chatServer.ChatServer runServer
+INFO: Sever started
+sep. 12, 2014 3:15:14 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 3:15:14 PM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#VORES 
+sep. 12, 2014 3:16:01 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 3:16:02 PM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#LARSSPITFREAK 
+sep. 12, 2014 3:18:57 PM chatServer.ClientHandler run
+INFO: Closed a Connection
+sep. 12, 2014 3:18:57 PM chatServer.ClientHandler run
+SEVERE: Socket timed out
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at chatServer.ClientHandler.run(ClientHandler.java:69)
+

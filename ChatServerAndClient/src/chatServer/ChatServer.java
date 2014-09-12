@@ -49,17 +49,18 @@ public class ChatServer implements Runnable {
 //          
 //          
 //  }
-    public synchronized void sendTo(String modtager, String sending, String user) {
+    public synchronized void sendTo(String modtager, String sending, String from) {
         
         // //// which socket! 
         if (modtager.equals("*")) {
             for (ClientHandler handler : userMap.values()) {
-                handler.send(sending);
+                
+                handler.send("MESSAGE#"+from+"#"+sending);
             }            
         }else{
             ClientHandler handler = userMap.get(modtager);
              
-            handler.send("MESSAGE#"+user+"#"+sending);  
+            handler.send("MESSAGE#"+from+"#"+sending);    /// hvor finder vi FROM ???
             ///
         }
         

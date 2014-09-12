@@ -18,6 +18,8 @@ public class ClientHandler extends Thread {
     PrintWriter writer;
     Socket socket;
     ChatServer server;
+    String client;
+    
 
     public ClientHandler(Socket socket, ChatServer server) throws IOException {
         input = new Scanner(socket.getInputStream());
@@ -40,23 +42,28 @@ public class ClientHandler extends Thread {
             Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));   // upper skal væk
             
             do {  
-                String user = messageParts[1]; // ikke declared endnu. user sendes til hashmap i server.
+                 // ikke declared endnu. user sendes til hashmap i server.
 
                 if (messageParts[0].equals("CONNECT")) {
-            
-                    server.connect(user, this);
+                    client = messageParts[1];
+                    server.connect(client, this);
 //      System.out.println(server.userMap.get(user));  // test om key=user finder value
                 }
                 if (messageParts[0].equals("SEND")) {
+                    
                     String chatMessage = messageParts[2];
-                    server.sendTo(messageParts[1], chatMessage, user);
+                    System.out.println("PART 1: "+messageParts[0]);
+                    System.out.println("PART 2: "+messageParts[1]);
+                    System.out.println("PART 3: "+messageParts[2]);
+                    
+                    server.sendTo(messageParts[1], chatMessage, client);
 //                    System.out.println("hgf"); // testing
 //                    System.out.println(message);
                     
                 }
                 if (messageParts[0].equals("CLOSE")) {
                     
-                    server.sendClose(user);
+                    server.sendClose(client);
                     Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Closed a Connection");
                 }
                 message = input.nextLine(); //IMPORTANT blocking call
