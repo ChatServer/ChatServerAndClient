@@ -1,0 +1,18 @@
+sep. 12, 2014 10:39:09 AM chatServer.ChatServer runServer
+INFO: Sever started
+sep. 12, 2014 10:39:24 AM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 10:39:24 AM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#BOB 
+sep. 12, 2014 10:40:49 AM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 10:41:00 AM chatServer.ClientHandler run
+INFO: Received the message: VCCO   
+sep. 12, 2014 10:41:17 AM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 10:41:26 AM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#BASTIAN 
+sep. 12, 2014 10:45:28 AM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 10:45:35 AM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#HANS 

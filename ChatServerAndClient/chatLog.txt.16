@@ -1,0 +1,42 @@
+sep. 12, 2014 10:04:06 AM chatServer.ChatServer runServer
+INFO: Sever started
+sep. 12, 2014 10:04:22 AM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 10:04:22 AM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#ANDERS 
+sep. 12, 2014 10:04:58 AM chatServer.ClientHandler run
+SEVERE: Socket timed out
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at chatServer.ClientHandler.run(ClientHandler.java:56)
+
+sep. 12, 2014 10:07:59 AM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 10:07:59 AM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#ANDERS 
+sep. 12, 2014 10:09:12 AM chatServer.ClientHandler run
+SEVERE: Socket timed out
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at chatServer.ClientHandler.run(ClientHandler.java:56)
+
+sep. 12, 2014 10:09:30 AM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 10:09:30 AM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#ANDERS 
+sep. 12, 2014 10:14:03 AM chatServer.ClientHandler run
+SEVERE: Socket timed out
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at chatServer.ClientHandler.run(ClientHandler.java:56)
+
+sep. 12, 2014 10:14:18 AM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 10:14:18 AM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#ANDERS 
+sep. 12, 2014 10:15:08 AM chatServer.ClientHandler run
+SEVERE: Socket timed out
+java.util.NoSuchElementException: No line found
+	at java.util.Scanner.nextLine(Scanner.java:1540)
+	at chatServer.ClientHandler.run(ClientHandler.java:56)
+

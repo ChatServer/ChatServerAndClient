@@ -49,16 +49,29 @@ public class ChatServer implements Runnable {
 //          
 //          
 //  }
-    public synchronized void sendTo(String modtager, String sending) {
-
+    public synchronized void sendTo(String modtager, String sending, String user) {
+        
         // //// which socket! 
         if (modtager.equals("*")) {
             for (ClientHandler handler : userMap.values()) {
                 handler.send(sending);
             }            
+        }else{
+            ClientHandler handler = userMap.get(modtager);
+             
+            handler.send("MESSAGE#"+user+"#"+sending);  
+            ///
         }
         
     }
+    
+    public synchronized void sendClose(String user){
+            ClientHandler handler = userMap.get(user);    
+            handler.send("CLOSE#");
+               // evt... rekkefølge omvendt el. forsinkelse?
+            removeHandler(user);
+            
+            }
     
     private void runServer(String logFile, String ip, int port) {
         Utils.setLogFile(logFile, ChatServer.class.getName());
@@ -87,8 +100,7 @@ public class ChatServer implements Runnable {
             // listener arguments
             while (running) {
                 
-            }
-            
+            }            
         } catch (IOException ex) {
             Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,10 +121,18 @@ public class ChatServer implements Runnable {
             onlineMessage += userName + ",";  //Et komma for meget ofølge protokollen !!!!!.
             
         }
+        if(onlineMessage.endsWith(",")){
+            onlineMessage = onlineMessage.substring(0, onlineMessage.length()-1);
+        }
+            
         for (ClientHandler h : userMap.values()) {
             h.send(onlineMessage);
 //            System.out.println("xxx");
         }
         
     }
+    
+ 
+    
+    
 }

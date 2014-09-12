@@ -27,7 +27,7 @@ public class ClientHandler extends Thread {
     }
 
     public void send(String msg) {
-        writer.println(msg);
+        writer.println(msg);        
     }
 
     @Override
@@ -35,27 +35,35 @@ public class ClientHandler extends Thread {
         try {
 
             String message = input.nextLine(); //IMPORTANT blocking call
+            
             String[] messageParts = message.split("#");
             Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", message));   // upper skal væk
-            while (!message.equals("CLOSE")) {
+            
+            do {  
                 String user = messageParts[1]; // ikke declared endnu. user sendes til hashmap i server.
 
                 if (messageParts[0].equals("CONNECT")) {
+            
                     server.connect(user, this);
 //      System.out.println(server.userMap.get(user));  // test om key=user finder value
                 }
                 if (messageParts[0].equals("SEND")) {
                     String chatMessage = messageParts[2];
-                    server.sendTo(messageParts[1], message);
+                    server.sendTo(messageParts[1], chatMessage, user);
 //                    System.out.println("hgf"); // testing
+//                    System.out.println(message);
+                    
                 }
                 if (messageParts[0].equals("CLOSE")) {
-                    server.removeHandler(user);
+                    
+                    server.sendClose(user);
                     Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, "Closed a Connection");
                 }
                 message = input.nextLine(); //IMPORTANT blocking call
                 messageParts = message.split("#");
-            }
+                
+            } while (!message.equals("CLOSE"));
+         
         }catch (NoSuchElementException ste) {
             Logger.getLogger(ChatServer.class.getName()).log(Level.SEVERE, "Socket timed out", ste); 
         }

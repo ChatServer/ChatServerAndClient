@@ -11,6 +11,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  *
@@ -67,7 +69,8 @@ public class ClientGui extends javax.swing.JFrame {
         jPanel1.add(textArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 360, 220));
 
         jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+
+            String[] strings = {"ADMIN", "*"};
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -123,16 +126,31 @@ public class ClientGui extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(ClientGui.class.getName()).log(Level.SEVERE, null, ex);
         }
-            CC.sendConnect(jTextField1.getText());        
+            CC.sendConnect(jTextField1.getText()); 
+            
         
     }//GEN-LAST:event_jButton1ActionPerformed
     public void sendMessageToGui(String Name, String msg){
         textArea1.setText(Name + ": " + msg);        
     }
-    public void updateUserList(){
-        
-//        jList1.add
-    }
+    
+    
+    public void updateUserList(String[] userOnlineParts){
+      DefaultListModel defaultModel = new DefaultListModel();
+//      
+//      listModel = new DefaultListModel();
+//      JList list = new JList(listModel);
+//      
+//      jList1.clearSelection();
+//      
+      for(String onl :userOnlineParts){   
+        defaultModel.addElement(onl);
+        jList1.setModel(defaultModel);
+      }
+      
+        System.out.println("onl test");
+       
+     }
     
     
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
@@ -140,6 +158,7 @@ public class ClientGui extends javax.swing.JFrame {
         String barberetSelected = (selected.substring(1, selected.length()-1));
         String msg = textField2.getText();
         CC.sendmessage(barberetSelected.replace(" ",""), msg);
+        
     }//GEN-LAST:event_button1ActionPerformed
 
     /**

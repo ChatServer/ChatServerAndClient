@@ -1,0 +1,10 @@
+sep. 12, 2014 12:52:06 PM chatServer.ChatServer runServer
+INFO: Sever started
+sep. 12, 2014 12:52:14 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 12:52:15 PM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#BASTIAN 
+sep. 12, 2014 12:53:20 PM chatServer.ChatServer runServer
+INFO: Connected to a client
+sep. 12, 2014 12:53:21 PM chatServer.ClientHandler run
+INFO: Received the message: CONNECT#RUBEN 

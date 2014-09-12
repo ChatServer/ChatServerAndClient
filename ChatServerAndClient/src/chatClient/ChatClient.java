@@ -22,8 +22,9 @@ public class ChatClient implements Runnable {
     private InetAddress serverAddress;
     private int port;
     ClientGui gui;
+    
     public ChatClient(ClientGui gui) {
-        this.gui = gui;
+        this.gui = gui;        
         
     }
 
@@ -33,7 +34,7 @@ public class ChatClient implements Runnable {
         socket = new Socket(serverAddress, port);
         input = new Scanner(socket.getInputStream());
         output = new PrintWriter(socket.getOutputStream(), true);
-
+            new Thread(this).start();
     }
 
     public void sendConnect(String name) {
@@ -46,6 +47,7 @@ public class ChatClient implements Runnable {
     }
 
     public void sendmessage(String name, String message) {
+//        System.out.println(name + ": " + message);
         try {
             String protocol = "SEND#" + name + "#" + message; //IMPORTANT blocking call
             send(protocol);
@@ -74,12 +76,15 @@ public class ChatClient implements Runnable {
         String msgProtocol;
         while (true) {
             msgProtocol = input.nextLine();
-//            System.out.println("Got the protocol: " + msgProtocol);
+            System.out.println("Got the protocol: " + msgProtocol);
             String[] messageParts = msgProtocol.split("#");
             Logger.getLogger(ChatServer.class.getName()).log(Level.INFO, String.format("Received the message: %1$S ", msgProtocol));   // upper skal væk
             if (messageParts[0].equals("ONLINE")) {
-                String UsersOnline = messageParts[1]; // evt splittes "," her , eller i GUI
-//                gui.updateUserList(UsersOnline);  // metodekald til metode i Gui
+                String usersOnline = messageParts[1]; // evt splittes "," her , eller i GUI
+                
+               String[] userOnlineParts = usersOnline.split(",");
+                
+                gui.updateUserList(userOnlineParts);  // metodekald til metode i Gui
             }
             if (messageParts[0].equals("MESSAGE")) {
                 String fromSender = messageParts[1];
@@ -87,8 +92,8 @@ public class ChatClient implements Runnable {
                 gui.sendMessageToGui(fromSender, message);   // metodekald til metode i Gui
             }
             if (messageParts[0].equals("CLOSE")) {
-                String tom = "";  // whitespace i Gui
-                String close = "You have been diconectet from ChatServer";
+                String tom = "Server says : ";  // whitespace i Gui
+                String close = "You have been disconnectet from ChatServer";
                 gui.sendMessageToGui(tom, close);   // metodekald til metode i Gui
             }
         }
