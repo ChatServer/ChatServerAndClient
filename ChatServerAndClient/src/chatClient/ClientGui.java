@@ -20,9 +20,7 @@ import javax.swing.JList;
  */
 public class ClientGui extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ClientGui
-     */
+    String currentClient;
     private ChatClient CC;
     public ClientGui() {
         CC = new ChatClient(this);
@@ -82,7 +80,12 @@ public class ClientGui extends javax.swing.JFrame {
         jPanel1.add(label1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, -1));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, -1));
 
-        jTextField2.setText("xxx.xxx.xxx.xxx");
+        jTextField2.setText("137.135.176.226");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 140, -1));
 
         jTextField3.setText("9090");
@@ -120,7 +123,7 @@ public class ClientGui extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        currentClient = jTextField1.getText();
         try {
             CC.connect(jTextField2.getText(), Integer.parseInt(jTextField3.getText()));
         } catch (IOException ex) {
@@ -131,7 +134,7 @@ public class ClientGui extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
     public void sendMessageToGui(String Name, String msg){
-        textArea1.setText(Name + ": " + msg);        
+        textArea1.append(Name + ": " + msg + "\n");        
     }
     
     
@@ -157,9 +160,15 @@ public class ClientGui extends javax.swing.JFrame {
         String selected = (jList1.getSelectedValuesList().toString());
         String barberetSelected = (selected.substring(1, selected.length()-1));
         String msg = textField2.getText();
+        textField2.setText("");
+        textArea1.append(currentClient + ": " + msg + "\n");
         CC.sendmessage(barberetSelected.replace(" ",""), msg);
         
     }//GEN-LAST:event_button1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
